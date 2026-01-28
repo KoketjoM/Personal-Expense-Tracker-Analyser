@@ -7,9 +7,13 @@ import argparse
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-e", "--expense", type=float, help="Adds an expense value")
-parser.add_argument("-i", "--income", type=float, help="Adds an income value")
 parser.add_argument("-c", "--category", type=str, help="Adds a label to the entry")
-parser.add_argument("-r", "--remove", type=int, help="Use entry ID to remove from CSV")
+
+parser.add_argument("--remove", type=int, help="Use entry ID to remove from CSV")
+parser.add_argument("--month", type=str, help="Search by month parameter")
+
+parser.add_argument("--list", help="Output search results")
+parser.add_argument("--total", help="Output expense balance")
 
 args = parser.parse_args()
 
