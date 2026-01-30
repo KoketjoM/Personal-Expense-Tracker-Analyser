@@ -2,24 +2,27 @@
 # Docs: https://docs.python.org/3/library/argparse.html
 import argparse
 
-# import time
 
-parser = argparse.ArgumentParser()
+def createCLI():
+    parser = argparse.ArgumentParser()
 
-parser.add_argument("-e", "--expense", type=float, help="Adds an expense value")
-parser.add_argument("-c", "--category", type=str, help="Adds a label to the entry")
+    parser.add_argument("-e", "--expense", type=float, help="Adds an expense value")
+    parser.add_argument("-c", "--category", type=str, help="Adds a label to the entry")
 
-parser.add_argument("--remove", type=int, help="Use entry ID to remove from CSV")
-parser.add_argument("--month", type=str, help="Search by month parameter")
+    parser.add_argument("--remove", type=int, help="Use entry ID to remove from CSV")
+    parser.add_argument("--month", type=str, help="Search by month parameter")
 
-parser.add_argument("--list", help="Output search results")
-parser.add_argument("--total", help="Output expense balance")
+    parser.add_argument("--list", help="Output search results")
+    parser.add_argument("--total", help="Output expense balance")
 
-args = parser.parse_args()
+    return parser.parse_args()
 
-if args.expense is not None:
-    print(f"Expense added: {args.expense}")
-if args.income is not None:
-    print(f"Income added: {args.income}")
-if args.category is not None:
-    print(f"Category added: {args.category}")
+
+#  ---- Testing ----
+if __name__ == "__main__":
+    cli = createCLI()
+
+    if cli.expense is not None:
+        print(f"Expense added: {cli.expense}")
+    if cli.category is not None:
+        print(f"Category added: {cli.category}")
