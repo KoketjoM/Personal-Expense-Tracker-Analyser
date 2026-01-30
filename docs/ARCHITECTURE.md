@@ -2,7 +2,7 @@
 
 ## System Overview
 
-```
+```markdown
 ┌─────────────┐
 │   User      │
 └──────┬──────┘
@@ -59,3 +59,43 @@ python cli.py --total --category groceries
 - **Validation**: Type checking at argparse level
   - Why: Fail fast with clear error messages
   - Example: `type=float` ensures amount is numeric before reaching core logic
+
+---
+
+### 5. Data Persistence & ID Management
+
+**Purpose**: Store expenses and provide unique identifiers for operations
+
+**File**: `src/tracker.py`
+
+**ID Strategy**: DataFrame index (not custom ID column)
+
+**Why?**:
+
+- Pandas maintains index automatically
+- Delete operation works on index: `df.drop(index)`
+- User sees index when listing (0, 1, 2...)
+- Sufficient for single-user application
+
+**Considered alternatives**:
+
+- Custom ID column (over-engineered for use case)
+- DateTime ID (poor user experience)
+- UUID (overkill for local app)
+
+**Implementation**:
+
+```python
+# Adding preserves automatic indexing
+expenses.loc[len(expenses)] = new_entry
+
+# Deleting by index is simple
+expenses.drop(index, inplace=True)
+expenses.reset_index(drop=True, inplace=True)  # Keep index clean
+```
+
+**When this would change**:
+
+- Multi-user system → Need persistent UUIDs
+- Database migration → Use auto-increment primary keys
+- Audit requirements → Need stable IDs that never reuse
